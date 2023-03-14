@@ -1,3 +1,8 @@
+import os
+
+from openAI.airequest import get_questions_title, get_question_details
+from question import Question
+
 
 def getquestions(request):
     """Responds to any HTTP request.
@@ -8,12 +13,17 @@ def getquestions(request):
         Response object using
         `make_response <http://flask.pocoo.org/docs/1.0/api/#flask.Flask.make_response>`.
     """
-    request_json = request.get_json(force=True, silent=True, cache=True)  # see https://flask.palletsprojects.com/en/2.0.x/api/ get_json Parse data as JSON
-    #in v.2.1 of the Flask framework they changed the impl of the get_json and if the content type if not provided it returns http 400 - BAD Requests, therefore we are usong now force=true and silent=true
+    body = request.get_json(force=True, silent=True,
+                            cache=True)  # see https://flask.palletsprojects.com/en/2.0.x/api/ get_json Parse data as JSON
+    listTitles = get_questions_title(body["questionCount"], body["questionLevel"], body["scopes"])
+    listTitles = [item[3:] for item in listTitles if item and item not in body["scopes"]]
+    questions = [Question(title.strip(), body["questionLevel"]) for title in listTitles]
+    for question in questions:
+        answer = get_question_details(question.title,question.questionLevel)
+        answer = eval(answer)
+        question.correctAnswers = [int(answer["Correct answer"])]
+        answer.pop("Correct answer")
+        question.options = list(answer.values())
+        print(question.__dict__)
 
-    if request.args and 'message' in request.args:
-        return request.args.get('message')
-    elif request_json and 'message' in request_json:
-        return request_json['message']
-    else:
-        return f'Hello World!'
+    return [question.__dict__ for question in questions ]

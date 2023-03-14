@@ -4,3 +4,4 @@ google~=3.0.0
 Flask~=2.2.2
 functions_framework~=3.3.0
 google-cloud-firestore==2.9
+python_dotenv==1.0.0
