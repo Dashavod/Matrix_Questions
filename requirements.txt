@@ -5,3 +5,4 @@ Flask~=2.2.2
 functions_framework~=3.3.0
 google-cloud-firestore==2.9
 python_dotenv==1.0.0
+firebase_admin~=6.1.0

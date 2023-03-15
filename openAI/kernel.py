@@ -42,7 +42,7 @@ def kernel(
         )
 
         tries = tries + 1
-        print(resp)
+        #print(resp)
         choices = resp['choices']
         if len(choices) > 0:
             result = choices[0]['text'].strip()

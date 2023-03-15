@@ -2,7 +2,7 @@ from openAI.kernel import kernel
 from question import Question
 
 
-def get_questions_title(count: int, questionLevel: str, scopes, capabilityLevel: str = "Qualified"):
+def get_questions_title(scopes,count:int = 10, questionLevel:str = "Junior",  capabilityLevel:str = "Qualified" ):
     """Get Titles
     Args:
         count(int): question count request for generating
@@ -12,8 +12,8 @@ def get_questions_title(count: int, questionLevel: str, scopes, capabilityLevel:
     Returns:
         return list of str with question titles
     """
-    prompt = Question.get_list_title_prompt(count, questionLevel, scopes)
-    return kernel(prompt,"daria",0.27).split("\n")
+    prompt = Question.get_list_title_prompt(scopes, count, questionLevel)
+    return kernel(prompt,"matrix",0.27).split("\n")
 
 
 def get_question_details(title: str, questionLevel: str = "Middle"):
@@ -26,4 +26,4 @@ def get_question_details(title: str, questionLevel: str = "Middle"):
         return dictionary with options and correctAnswer
        """
     prompt = Question.get_detail_prompt(title,questionLevel)
-    return kernel(prompt,"daria",0.27)
+    return kernel(prompt,"matrix",0.5)
