@@ -15,7 +15,7 @@ def generator(body):
         except:
             continue
     questions = [Question(item[1], item[2], item[0], body["questionLevel"], body["capabilityLevel"], body["areaId"]) for
-                 item in listTitles]
+                 item in listTitles if item[1].strip() not in body["scopes"]]
     failed = []
     for question in questions:
         answer = get_question_details(question.title, question.questionLevel)
@@ -28,5 +28,6 @@ def generator(body):
         except:
             failed.append(question.title)
             print("An exception occurred: Fail parse options")
+        add_document_to_firestore(question, body["prefix"])
         #print(question.__dict__)
     return [item for item in questions if item.title not in failed]
