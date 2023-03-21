@@ -10,7 +10,7 @@ def add_document_to_firestore(doc:Question,prefix:str = "ai"):
     try:
         db.collection(u'generatedQuestions').document(id).set(doc.__dict__)
     except:
-        return f"Something wrong with add doc {doc.title} to firestore"
+        print( f"Something wrong with add doc {doc.title} to firestore")
     print(f"Document {doc.title} added to firestore")
     return id
 

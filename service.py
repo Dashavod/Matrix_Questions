@@ -24,10 +24,10 @@ def generator(body):
             question.correctAnswers = [int(answer["Correct answer"])]
             answer.pop("Correct answer")
             question.options = list(answer.values())
-            add_document_to_firestore(question, body["prefix"])
         except:
             failed.append(question.title)
             print("An exception occurred: Fail parse options")
+            continue
         add_document_to_firestore(question, body["prefix"])
-        #print(question.__dict__)
+
     return [item for item in questions if item.title not in failed]

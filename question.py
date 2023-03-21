@@ -6,7 +6,7 @@ from templates.questionDetails import get_detail_prompt
 
 class Question:
 
-    def __init__(self, title: str,resources:str,category:str, questionLevel: str, capabilityLevel: str = "Qualified", areaId:str = 20 *"0", options=None,
+    def __init__(self, title: str,resources:str = "",category:str = "", questionLevel: str="Junior", capabilityLevel: str = "Qualified", areaId:str = 20 *"0", options=None,
                  correctAnswers=None):
         self.title = title
         self.category = category
