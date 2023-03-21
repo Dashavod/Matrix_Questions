@@ -11,7 +11,8 @@ def generator(body):
     for item in uncheckedlistTitles:
         try:
             opt = eval(item)
-            listTitles.append(opt)
+            if len(opt) == 3:
+                listTitles.append(opt)
         except:
             continue
     questions = [Question(item[1], item[2], item[0], body["questionLevel"], body["capabilityLevel"], body["areaId"]) for
