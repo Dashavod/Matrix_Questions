@@ -16,5 +16,5 @@ def questionGenerator(request):
         "countAddedQuestions": len(questions),
         "result": "Success"
     }
-    if not failed: response["failed"] = failed
+    if len(failed): response["failed"] = failed
     return response
