@@ -31,4 +31,4 @@ def generator(body):
             continue
         add_document_to_firestore(question, body["prefix"])
 
-    return [item for item in questions if item.title not in failed]
+    return ([item for item in questions if item.title not in failed],failed)

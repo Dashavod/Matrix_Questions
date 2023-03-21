@@ -11,8 +11,10 @@ def questionGenerator(request):
     if body.get("scopes") is None:
         return abort(400, "Expected parameter 'scopes'")
 
-    response = generator(body)
-    return {
-        "countAddedQuestions": len(response),
+    questions,failed = generator(body)
+    response = {
+        "countAddedQuestions": len(questions),
         "result": "Success"
     }
+    if not failed: response["failed"] = failed
+    return response
