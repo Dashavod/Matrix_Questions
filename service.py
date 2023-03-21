@@ -14,7 +14,7 @@ def generator(body):
             if len(opt) == 3:
                 listTitles.append(opt)
         except:
-            print(f"{item} invalid structure")
+            print(f"Error Parse title:{item} invalid structure")
             continue
     questions = [Question(item[1], item[2], item[0], body["questionLevel"], body["capabilityLevel"], body["areaId"]) for
                  item in listTitles if item[1].strip() not in body["scopes"]]
